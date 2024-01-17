@@ -24,7 +24,7 @@ jobs:
           port: 22
           envs: BRANCH_NAME
           # TODO: Need to find out how to start new container w/o stopping the previous one
-          shell: bash
+          # shell: bash
           script: 
             echo "Deploying to $APP_ENV environment."
             cd /var/www/med-demo-back
