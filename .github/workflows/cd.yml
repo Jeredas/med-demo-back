@@ -1,0 +1,35 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    # if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          envs: BRANCH_NAME
+          # TODO: Need to find out how to start new container w/o stopping the previous one
+          shell: bash
+          script: 
+            echo "Deploying to $APP_ENV environment."
+            cd /var/www/med-demo-back
+            git checkout -B $BRANCH_NAME
+            git pull --rebase origin $BRANCH_NAME
+            git status
+            echo "Restarting docker."
+            docker compose up -d --build
