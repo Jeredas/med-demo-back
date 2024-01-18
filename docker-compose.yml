@@ -5,16 +5,16 @@
 # You can start all services by running "docker-compose up"
 version: '3.7'
 services:
-  node:
-    restart: always
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '8080:5000'
-      - '8081:8103'
-    networks:
-      - demo
+#  node:
+#   restart: always
+#    build: 
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - '8080:5000'
+#      - '8081:8103'
+#    networks:
+#      - demo
   postgres:
     image: postgres:12
     restart: always
