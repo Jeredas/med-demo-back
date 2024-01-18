@@ -11,8 +11,8 @@ services:
       #context: .
       #dockerfile: Dockerfile
     #ports:
-      - '8080:5000'
-      - '8081:8103'
+     # - '8080:5000'
+      #- '8081:8103'
    # networks:
      # - demo
   postgres:
